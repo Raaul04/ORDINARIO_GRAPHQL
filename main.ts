@@ -1,9 +1,10 @@
 import { ApolloServer } from "@apollo/server";
 import { schema } from "./schema.ts";
-//import { MongoClient } from "mongodb";
 import {  } from "./types.ts";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { resolvers } from "./resolvers.ts";
+//import { MongoClient } from "mongodb";
+
 /*
 const MONGO_URL = Deno.env.get("MONGO_URL");
 
