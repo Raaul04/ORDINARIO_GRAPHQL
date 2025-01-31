@@ -12,7 +12,7 @@ export const schema = `#graphql
         getRestaurants:[Restaurant]!
     }
     type Mutation{
-        addRestaurant(name:String!,direccion:String!,ciudad:String!,telefono:String!):Restaurant!
+        addRestaurant(name:String!,direccion:String!,telefono:String!):Restaurant!
         deleteRestaurant(id:ID!):Boolean!
     }
 

@@ -2,7 +2,6 @@ import { RestaurantModel,API_CLIMA,API_TIME } from "./types.ts"
 import { GraphQLError } from "graphql";
 import { ObjectId,Collection } from "mongodb";
 
-
 type Context={
     RestaurantCollection:Collection<RestaurantModel>
 }
@@ -20,6 +19,7 @@ type ArgsDelete={
 }
 
 export const resolvers = {
+
     Restaurant:{
         id:(parent:RestaurantModel):string=>{
             return parent._id!.toString();
@@ -49,7 +49,7 @@ export const resolvers = {
             const url=`ttps://api.api-ninjas.com/v1/worldtime?timezone=${parent.timezone}`
             const dataTime= await fetch(url,{
                 headers: {
-                    'X-Api-Key': 'nyNihb/AhHFDFFdAk3RFiQ==KJaDgoIF9Y5rCoEo'
+                    'X-Api-Key': api
                   },
             })
             if(dataTime.status!==200){
@@ -78,22 +78,27 @@ export const resolvers = {
         },
 
         addRestaurant:async(_:unknown,args:ArgsAddRestaurant,ctx:Context)=>{
-            const {telefono,ciudad,name,direccion}=args
+            const {telefono,name,ciudad,direccion}=args
             const telefonoExistente= await ctx.RestaurantCollection.findOne({telefono})
             if(telefonoExistente){
                 throw new GraphQLError("Ya hay un telefono en la base de de datos")
             }
-            const direccionCompleta=direccion+ciudad
-            const newRestaurant= await ctx.RestaurantCollection.insertOne({
-                _id:new ObjectId({id}),
+            
+            /*const newRestaurante= await ctx.RestaurantCollection.insertOne({
                 name,
-                telefono,
-                
-                
+              
+            },{
                 
             })
+            if(!newRestaurante){throw new GraphQLError("No se pudo hacer el nuevo restaurante")}
+
+            return newRestaurante*/
+    
+
+            }
+            
+         
               
         }
     }
 
-}
