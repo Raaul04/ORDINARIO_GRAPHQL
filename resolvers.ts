@@ -78,6 +78,7 @@ export const resolvers = {
         },
 
         addRestaurant:async(_:unknown,args:ArgsAddRestaurant,ctx:Context)=>{
+
             const {telefono,name,ciudad,direccion}=args
             const telefonoExistente= await ctx.RestaurantCollection.findOne({telefono})
             if(telefonoExistente){

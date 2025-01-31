@@ -13,8 +13,6 @@ export type RestaurantModel=OptionalId<{
 //https://api.api-ninjas.com/v1/weather
 export type API_CLIMA={
     temp:number,
-    latitude:number,
-    longitude:number
 }
 //https://api.api-ninjas.com/v1/worldtime
 export type API_TIME={
