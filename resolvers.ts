@@ -1,6 +1,8 @@
 import { RestaurantModel,API_CLIMA,API_TIME } from "./types.ts"
 import { GraphQLError } from "graphql";
 import { ObjectId,Collection } from "mongodb";
+
+
 type Context={
     RestaurantCollection:Collection<RestaurantModel>
 }
@@ -8,7 +10,7 @@ type ArgsGetRestaurant={
     id:string
 }
 type ArgsAddRestaurant={
-    id:string
+    ciudad:string
     name:string,
     direccion:string,
     telefono:string
@@ -22,7 +24,7 @@ export const resolvers = {
         id:(parent:RestaurantModel):string=>{
             return parent._id!.toString();
         },
-        temperatura:async(parent:RestaurantModel)=>{
+        temp:async(parent:RestaurantModel)=>{
             const api=Deno.env.get("API_KEY")
             if(!api){
                 throw new GraphQLError("Error en la Api")
@@ -76,16 +78,21 @@ export const resolvers = {
         },
 
         addRestaurant:async(_:unknown,args:ArgsAddRestaurant,ctx:Context)=>{
-            const telefono=args
-            const telefonoExistente= await ctx.RestaurantCollection.findOne(telefono)
+            const {telefono,ciudad,name,direccion}=args
+            const telefonoExistente= await ctx.RestaurantCollection.findOne({telefono})
             if(telefonoExistente){
                 throw new GraphQLError("Ya hay un telefono en la base de de datos")
             }
-            const insertedId= await ctx.RestaurantCollection.insertOne
-            
-
-            
-            
+            const direccionCompleta=direccion+ciudad
+            const newRestaurant= await ctx.RestaurantCollection.insertOne({
+                _id:new ObjectId({id}),
+                name,
+                telefono,
+                
+                
+                
+            })
+              
         }
     }
 

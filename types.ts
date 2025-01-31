@@ -3,9 +3,11 @@ export type RestaurantModel=OptionalId<{
     name:string,
     direccion:string,
     telefono:string
+    temp:number 
     latitude:number,
     longitude:number,
-    timezone:string
+    timezone?:string
+    datetime?:string
 }>
 
 //https://api.api-ninjas.com/v1/weather
